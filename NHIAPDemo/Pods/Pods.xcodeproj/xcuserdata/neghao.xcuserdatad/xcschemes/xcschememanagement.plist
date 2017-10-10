@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NHIAP.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-NHIAPDemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>98467F5B709F855E3AE21C72BE40D052</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9986760B49D3D168F67DDC07224DE58C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD119680CEFF567FE0A3674320FCF142</key>
+		<key>C10D275AE33A2204B6360302B9F4F1C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D702FEF7C30394203A5510733E22B331</key>
+		<key>CD119680CEFF567FE0A3674320FCF142</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -6,6 +6,8 @@ target 'NHIAPDemo' do
   # use_frameworks!
 
 pod 'NHHUDExtend'
+pod 'NHIAP', :path => '../NHIAP.podspec'
+
 
   # Pods for NHIAPDemo
 

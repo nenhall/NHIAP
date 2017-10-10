@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7DE80CBD9698362D6FCB76002CC1DF5F'
-               BlueprintName = 'Pods-NHIAPDemoTests'
+               BlueprintIdentifier = '98467F5B709F855E3AE21C72BE40D052'
+               BlueprintName = 'NHIAP'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-NHIAPDemoTests.a'>
+               BuildableName = 'libNHIAP.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

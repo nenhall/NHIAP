@@ -7,32 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093C0042AD9A96CDA2D24B35069C0ADC /* NHIAP.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BF781F703A6797F20A7E58A036CA36C /* NHIAP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B51F8DE2802E8DF81E7C9DA519E6CC0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
+		0C887F7D4D726ACCD6726C630D265444 /* NHOrderVerify.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A8A8D899A825A05699F505C785C7CE1 /* NHOrderVerify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		128A2D4789927463F05056EA55348808 /* MBProgressHUD+NHAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8C371C84AC554A6AE04A460566EB22 /* MBProgressHUD+NHAdd.m */; };
+		14DD1D2EF08FE296D32A3445AB817046 /* NHIAP.m in Sources */ = {isa = PBXBuildFile; fileRef = 48274662DCC225FE9643B8275CEC07BC /* NHIAP.m */; };
+		1506E857103A7734D23E827540A3033F /* NHMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = D96A6C25D031E08D95E574F04DDEF957 /* NHMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C76817FA5353D989D7BC33E8C5997B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 409899CE1143F81E8130E2069D59605B /* CoreGraphics.framework */; };
+		20214E591B7EDFFB16B3DCA3280669D6 /* NHOrderVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = DBA1AB709E2C50E70B8792432116491D /* NHOrderVerify.m */; };
+		2653EE782A59A92AB0504FF406A913FA /* NHPayApi.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FF2055D4EDEBC423584F476507F5 /* NHPayApi.m */; };
+		2BBF50531C1304D416819D62E99DE98A /* NHLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 56412CA892A8AC5B3FFD1AE65C217871 /* NHLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		486BA133E5373050649E7089570AFEE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
 		536F7D0550F5FD9F5869CEC995CFEE9B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 01097796C6D409EA91A3E9AAD3C49164 /* MBProgressHUD.m */; };
-		6D3CF6C15AD37C4FCB57A575C9C8621B /* Pods-NHIAPDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5196D2FBEAA6B2DFE03342D87ED611 /* Pods-NHIAPDemo-dummy.m */; };
+		56165946936308C649F14584ECC9AC1F /* NHOrderManage.m in Sources */ = {isa = PBXBuildFile; fileRef = C6898E352CBF6DC6BF0D40D05C8A8378 /* NHOrderManage.m */; };
+		5864D14541F6EF3BD4804679E0DEE2CD /* Pods-NHIAPDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5196D2FBEAA6B2DFE03342D87ED611 /* Pods-NHIAPDemo-dummy.m */; };
+		5E1879A5954F369A12D5C9555F9E6748 /* NHSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D879BC5904F0E3F63B848D07B9F7AC /* NHSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5EDC76C774FC2F65ACF4169A58BCA0D9 /* NHLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 887982B601B424995A9E6427826837AC /* NHLog.m */; };
 		7291E906AE8A3C1F92183154FE65DCDD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7BDB2580B244756CFA046131516EF2 /* QuartzCore.framework */; };
 		7C18E694E546FB44D824E1955BEEAFD0 /* Pods-NHIAPDemoTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C70FB939F2F65B362F9FB0AC497AF890 /* Pods-NHIAPDemoTests-dummy.m */; };
+		8141C44DCD5B3D5EC07F18278BEF1423 /* NHPayApi.h in Headers */ = {isa = PBXBuildFile; fileRef = EED06B681F9771EEE09259011EB1F4A0 /* NHPayApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		826ACD7AC89DC8055F9F4BD938827F8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
 		93F12B05D8333C37D9CBEA3D1782CC04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
 		A3B32412B0F1B601BCA35342E4464901 /* Pods-NHIAPDemoUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC116FEFC53ECA5ED7536F0907B26CE /* Pods-NHIAPDemoUITests-dummy.m */; };
 		AAB92036F63EB42A1D637868A855334D /* MBProgressHUD+NHAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = 78723247726F9086794653911FE8B35D /* MBProgressHUD+NHAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5FFF790E684F77DF420F70D0DC4D156 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
-		C46B60249B2ACE1F53027A27957BEA8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
+		B9F528EE2B1F645A9FA40D7EE39D6160 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */; };
 		CB536F701A4C075BF5357EA7199BB330 /* MBProgressHUD_NHExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = C899BB604017847F5FAA222E8FAF9193 /* MBProgressHUD_NHExtend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDB2BC140B6C9AE80EF91B42DE542A86 /* NHOrderManage.h in Headers */ = {isa = PBXBuildFile; fileRef = E5373213B56759C96D4EC4BC56FFC761 /* NHOrderManage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD02B3CB9E4B54392A16CB9AA1FA65E /* NHHUDExtend-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6146395B21465B11028B906825FED61B /* NHHUDExtend-dummy.m */; };
+		DF8D2ACB8FB92D2A143D5F49C5E4D1CA /* NHIAP-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 852E1AB59FBB1C327670E783B030AE8C /* NHIAP-dummy.m */; };
 		E5229F5125ACD420659E7B2D19BB30A8 /* MBProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3BBA689242469009EB2FFFB740CCA9 /* MBProgressHUD-dummy.m */; };
 		EA321C98029015AA4895C0B26891D8F8 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D27BC1A5487273EBBDC3983375F6E50 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		266649BDB7EC1833F8AA1AD2AA3AA80E /* PBXContainerItemProxy */ = {
+		003F33AF51A89816E3CE181689E1C13E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 586F2DFA9BDCC6675C2546793A69E5CC;
-			remoteInfo = MBProgressHUD;
+			remoteGlobalIDString = 98467F5B709F855E3AE21C72BE40D052;
+			remoteInfo = NHIAP;
 		};
 		3B190A4909D1D22E75C297169A500C90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -41,7 +55,14 @@
 			remoteGlobalIDString = 586F2DFA9BDCC6675C2546793A69E5CC;
 			remoteInfo = MBProgressHUD;
 		};
-		8F38A5EF31B63EB08F7073D921984019 /* PBXContainerItemProxy */ = {
+		983AAC15B223BC8654179C68CCAB1BF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 586F2DFA9BDCC6675C2546793A69E5CC;
+			remoteInfo = MBProgressHUD;
+		};
+		FD73AA3AC5F7883C509083B35D3C07D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -53,44 +74,60 @@
 /* Begin PBXFileReference section */
 		01097796C6D409EA91A3E9AAD3C49164 /* MBProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		039F2FA5CB2E497ADB41660E1B7EDF5C /* Pods-NHIAPDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemo-resources.sh"; sourceTree = "<group>"; };
-		04ED2F93B28B95B8C6494D062EF7AFF7 /* libNHHUDExtend.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNHHUDExtend.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D27BC1A5487273EBBDC3983375F6E50 /* MBProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		12992E853CAE14F2102525E0D84ADAB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		133A5502E0414728E449C2D9C9488EEB /* Pods-NHIAPDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13F32B84D667FBE04F5E1C059D5AF018 /* Pods-NHIAPDemoUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NHIAPDemoUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		196F09EB628DF9C57331088F6A20AF38 /* MBProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBProgressHUD.xcconfig; sourceTree = "<group>"; };
-		32B9815F1557EE8EA4B99B3CE4C9F00F /* libPods-NHIAPDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NHIAPDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A8A8D899A825A05699F505C785C7CE1 /* NHOrderVerify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHOrderVerify.h; path = NHIAP/NHOrderVerify.h; sourceTree = "<group>"; };
+		33F9253236D58D6BE110C39B8A90D41C /* libMBProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMBProgressHUD.a; path = libMBProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		342EB26371D13780251BF314210B70A9 /* NHHUDExtend.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NHHUDExtend.xcconfig; sourceTree = "<group>"; };
-		35F8C2BB2602707DCBFC89FE8CF4F644 /* libPods-NHIAPDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NHIAPDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36E35492365F5D0070F59DA8E3367DFF /* Pods-NHIAPDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NHIAPDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		392E3F1CD8BDFAFDEE64F27078F71000 /* NHIAP-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NHIAP-prefix.pch"; sourceTree = "<group>"; };
 		409899CE1143F81E8130E2069D59605B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		48274662DCC225FE9643B8275CEC07BC /* NHIAP.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHIAP.m; path = NHIAP/NHIAP.m; sourceTree = "<group>"; };
 		4FA4213078BD27599F018991AD94ABF8 /* Pods-NHIAPDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		516351BA64A218A54307C756504209FB /* Pods-NHIAPDemoTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemoTests-frameworks.sh"; sourceTree = "<group>"; };
+		56412CA892A8AC5B3FFD1AE65C217871 /* NHLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHLog.h; path = NHIAP/NHLog.h; sourceTree = "<group>"; };
 		5803876C8FD66B3DE44FC034E27715F8 /* Pods-NHIAPDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5BF781F703A6797F20A7E58A036CA36C /* NHIAP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHIAP.h; path = NHIAP/NHIAP.h; sourceTree = "<group>"; };
+		5DEFB6975BD16E0486742CA2FFBED11A /* libNHIAP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libNHIAP.a; path = libNHIAP.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7BDB2580B244756CFA046131516EF2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		6146395B21465B11028B906825FED61B /* NHHUDExtend-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NHHUDExtend-dummy.m"; sourceTree = "<group>"; };
 		624EDA7785A996F193D4EF6E7657EFFA /* Pods-NHIAPDemoTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NHIAPDemoTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		6689C2B3016617E5643C4F7B3C231C07 /* Pods-NHIAPDemoTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemoTests-resources.sh"; sourceTree = "<group>"; };
-		684C0FFBA1EC155506C75D0FDE25A1E4 /* libPods-NHIAPDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NHIAPDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C5196D2FBEAA6B2DFE03342D87ED611 /* Pods-NHIAPDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NHIAPDemo-dummy.m"; sourceTree = "<group>"; };
 		6DC3B211FA20DDDC3118DE2B92249EAD /* Pods-NHIAPDemoUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemoUITests-resources.sh"; sourceTree = "<group>"; };
 		78723247726F9086794653911FE8B35D /* MBProgressHUD+NHAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+NHAdd.h"; path = "NHHUDExtend/MBProgressHUD+NHAdd.h"; sourceTree = "<group>"; };
 		800F947B479BD9CF35D702759C26AEE5 /* Pods-NHIAPDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8171660DF6CA8C099A34F52AD265C1BC /* libPods-NHIAPDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-NHIAPDemoTests.a"; path = "libPods-NHIAPDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		852E1AB59FBB1C327670E783B030AE8C /* NHIAP-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NHIAP-dummy.m"; sourceTree = "<group>"; };
+		887982B601B424995A9E6427826837AC /* NHLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHLog.m; path = NHIAP/NHLog.m; sourceTree = "<group>"; };
 		8B8C371C84AC554A6AE04A460566EB22 /* MBProgressHUD+NHAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+NHAdd.m"; path = "NHHUDExtend/MBProgressHUD+NHAdd.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8D6F6D8972B558F78FBEF6A7E18CE321 /* libPods-NHIAPDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-NHIAPDemo.a"; path = "libPods-NHIAPDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94B7525C4C65196C5058045ACB70334A /* Pods-NHIAPDemoUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NHIAPDemoUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		99E3163CC0F0E62328CF3DC65C9E62AF /* NHHUDExtend-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NHHUDExtend-prefix.pch"; sourceTree = "<group>"; };
 		A9E860D79C8BE249A4811A00D4C45193 /* Pods-NHIAPDemoTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NHIAPDemoTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B205344A40CAF3A6197E85F38D49D785 /* Pods-NHIAPDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B923BEEC355D200AB3073CAEE003E211 /* libPods-NHIAPDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-NHIAPDemoUITests.a"; path = "libPods-NHIAPDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCF7FF2055D4EDEBC423584F476507F5 /* NHPayApi.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHPayApi.m; path = NHIAP/NHPayApi.m; sourceTree = "<group>"; };
+		BDB794964749CA208DC9E7D4FC4740AA /* NHIAP.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NHIAP.xcconfig; sourceTree = "<group>"; };
 		BEC116FEFC53ECA5ED7536F0907B26CE /* Pods-NHIAPDemoUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NHIAPDemoUITests-dummy.m"; sourceTree = "<group>"; };
-		C26E05318DFB9F3C11E4F62C451A5D42 /* libMBProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMBProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4D879BC5904F0E3F63B848D07B9F7AC /* NHSingleton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHSingleton.h; path = NHIAP/NHSingleton.h; sourceTree = "<group>"; };
 		C5E323359141460DE13EFDF7DA1531BA /* Pods-NHIAPDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemo-frameworks.sh"; sourceTree = "<group>"; };
+		C6898E352CBF6DC6BF0D40D05C8A8378 /* NHOrderManage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHOrderManage.m; path = NHIAP/NHOrderManage.m; sourceTree = "<group>"; };
 		C70FB939F2F65B362F9FB0AC497AF890 /* Pods-NHIAPDemoTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NHIAPDemoTests-dummy.m"; sourceTree = "<group>"; };
 		C899BB604017847F5FAA222E8FAF9193 /* MBProgressHUD_NHExtend.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD_NHExtend.h; path = NHHUDExtend/MBProgressHUD_NHExtend.h; sourceTree = "<group>"; };
+		D0E908CFE50C4F964E581F612F3B6657 /* libNHHUDExtend.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libNHHUDExtend.a; path = libNHHUDExtend.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58CC972DD2CB550192F3A7D8CF5A0BE /* Pods-NHIAPDemoUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NHIAPDemoUITests-frameworks.sh"; sourceTree = "<group>"; };
+		D96A6C25D031E08D95E574F04DDEF957 /* NHMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHMacro.h; path = NHIAP/NHMacro.h; sourceTree = "<group>"; };
+		DBA1AB709E2C50E70B8792432116491D /* NHOrderVerify.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NHOrderVerify.m; path = NHIAP/NHOrderVerify.m; sourceTree = "<group>"; };
+		E5373213B56759C96D4EC4BC56FFC761 /* NHOrderManage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHOrderManage.h; path = NHIAP/NHOrderManage.h; sourceTree = "<group>"; };
 		E8908C26CB43428FB5878E2460FE558F /* MBProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-prefix.pch"; sourceTree = "<group>"; };
 		EB3BBA689242469009EB2FFFB740CCA9 /* MBProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		EB614F1C653B7B1BDA2789A23348E8AC /* Pods-NHIAPDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NHIAPDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		EED06B681F9771EEE09259011EB1F4A0 /* NHPayApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NHPayApi.h; path = NHIAP/NHPayApi.h; sourceTree = "<group>"; };
 		FF2A5961B35B968280D1C9B3CCDD64D8 /* Pods-NHIAPDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NHIAPDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,11 +156,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B9E263C5321797A90D8676A655EA8D73 /* Frameworks */ = {
+		667673EFEB1F40FCFC13B80BA42E18F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46B60249B2ACE1F53027A27957BEA8C /* Foundation.framework in Frameworks */,
+				0B51F8DE2802E8DF81E7C9DA519E6CC0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA05D40D2689712E7FFE95D93331B282 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9F528EE2B1F645A9FA40D7EE39D6160 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,18 +223,6 @@
 			path = "Target Support Files/Pods-NHIAPDemoUITests";
 			sourceTree = "<group>";
 		};
-		58AC9076272F921F01BDDF7F75CF7F56 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C26E05318DFB9F3C11E4F62C451A5D42 /* libMBProgressHUD.a */,
-				04ED2F93B28B95B8C6494D062EF7AFF7 /* libNHHUDExtend.a */,
-				32B9815F1557EE8EA4B99B3CE4C9F00F /* libPods-NHIAPDemo.a */,
-				35F8C2BB2602707DCBFC89FE8CF4F644 /* libPods-NHIAPDemoTests.a */,
-				684C0FFBA1EC155506C75D0FDE25A1E4 /* libPods-NHIAPDemoUITests.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		5A4DBD434EA75DD3EDD3494C46AE6968 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,13 +244,33 @@
 			path = "../Target Support Files/MBProgressHUD";
 			sourceTree = "<group>";
 		};
+		712F385E7C1E2992FA07EE5686C51840 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BDB794964749CA208DC9E7D4FC4740AA /* NHIAP.xcconfig */,
+				852E1AB59FBB1C327670E783B030AE8C /* NHIAP-dummy.m */,
+				392E3F1CD8BDFAFDEE64F27078F71000 /* NHIAP-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "NHIAPDemo/Pods/Target Support Files/NHIAP";
+			sourceTree = "<group>";
+		};
+		78AC0658C2EC4B29ED76FF6017BB4F87 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DCAEE5A041B32763A3739C1C41A5126A /* NHIAP */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				78AC0658C2EC4B29ED76FF6017BB4F87 /* Development Pods */,
 				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
 				A4EB94AFC61CC3C853A003AECB28F1A8 /* Pods */,
-				58AC9076272F921F01BDDF7F75CF7F56 /* Products */,
+				C9F9A69C9DAAB65042B9095430D2C255 /* Products */,
 				926C4C2C4517676092B46511AD84F19E /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -240,6 +293,7 @@
 				C899BB604017847F5FAA222E8FAF9193 /* MBProgressHUD_NHExtend.h */,
 				9E844A907598A0B8180453465A1CAA41 /* Support Files */,
 			);
+			name = NHHUDExtend;
 			path = NHHUDExtend;
 			sourceTree = "<group>";
 		};
@@ -278,6 +332,40 @@
 			path = "Target Support Files/Pods-NHIAPDemo";
 			sourceTree = "<group>";
 		};
+		C9F9A69C9DAAB65042B9095430D2C255 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				33F9253236D58D6BE110C39B8A90D41C /* libMBProgressHUD.a */,
+				D0E908CFE50C4F964E581F612F3B6657 /* libNHHUDExtend.a */,
+				5DEFB6975BD16E0486742CA2FFBED11A /* libNHIAP.a */,
+				8D6F6D8972B558F78FBEF6A7E18CE321 /* libPods-NHIAPDemo.a */,
+				8171660DF6CA8C099A34F52AD265C1BC /* libPods-NHIAPDemoTests.a */,
+				B923BEEC355D200AB3073CAEE003E211 /* libPods-NHIAPDemoUITests.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCAEE5A041B32763A3739C1C41A5126A /* NHIAP */ = {
+			isa = PBXGroup;
+			children = (
+				5BF781F703A6797F20A7E58A036CA36C /* NHIAP.h */,
+				48274662DCC225FE9643B8275CEC07BC /* NHIAP.m */,
+				56412CA892A8AC5B3FFD1AE65C217871 /* NHLog.h */,
+				887982B601B424995A9E6427826837AC /* NHLog.m */,
+				D96A6C25D031E08D95E574F04DDEF957 /* NHMacro.h */,
+				E5373213B56759C96D4EC4BC56FFC761 /* NHOrderManage.h */,
+				C6898E352CBF6DC6BF0D40D05C8A8378 /* NHOrderManage.m */,
+				1A8A8D899A825A05699F505C785C7CE1 /* NHOrderVerify.h */,
+				DBA1AB709E2C50E70B8792432116491D /* NHOrderVerify.m */,
+				EED06B681F9771EEE09259011EB1F4A0 /* NHPayApi.h */,
+				BCF7FF2055D4EDEBC423584F476507F5 /* NHPayApi.m */,
+				C4D879BC5904F0E3F63B848D07B9F7AC /* NHSingleton.h */,
+				712F385E7C1E2992FA07EE5686C51840 /* Support Files */,
+			);
+			name = NHIAP;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		EEEEA52072DE6B7CABAD8E326BD9CC14 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +373,7 @@
 				01097796C6D409EA91A3E9AAD3C49164 /* MBProgressHUD.m */,
 				6A44EE1AB89A30466ACB16BCD0BF88CC /* Support Files */,
 			);
+			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -308,6 +397,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD4587D955974B515A62519D4851D8F5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				093C0042AD9A96CDA2D24B35069C0ADC /* NHIAP.h in Headers */,
+				2BBF50531C1304D416819D62E99DE98A /* NHLog.h in Headers */,
+				1506E857103A7734D23E827540A3033F /* NHMacro.h in Headers */,
+				CDB2BC140B6C9AE80EF91B42DE542A86 /* NHOrderManage.h in Headers */,
+				0C887F7D4D726ACCD6726C630D265444 /* NHOrderVerify.h in Headers */,
+				8141C44DCD5B3D5EC07F18278BEF1423 /* NHPayApi.h in Headers */,
+				5E1879A5954F369A12D5C9555F9E6748 /* NHSingleton.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -325,7 +428,7 @@
 			);
 			name = MBProgressHUD;
 			productName = MBProgressHUD;
-			productReference = C26E05318DFB9F3C11E4F62C451A5D42 /* libMBProgressHUD.a */;
+			productReference = 33F9253236D58D6BE110C39B8A90D41C /* libMBProgressHUD.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7DE80CBD9698362D6FCB76002CC1DF5F /* Pods-NHIAPDemoTests */ = {
@@ -341,7 +444,24 @@
 			);
 			name = "Pods-NHIAPDemoTests";
 			productName = "Pods-NHIAPDemoTests";
-			productReference = 35F8C2BB2602707DCBFC89FE8CF4F644 /* libPods-NHIAPDemoTests.a */;
+			productReference = 8171660DF6CA8C099A34F52AD265C1BC /* libPods-NHIAPDemoTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		98467F5B709F855E3AE21C72BE40D052 /* NHIAP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94E170A7F412AF315E5519E023F55B64 /* Build configuration list for PBXNativeTarget "NHIAP" */;
+			buildPhases = (
+				FD402985E12B729502B840D47720E2D6 /* Sources */,
+				EA05D40D2689712E7FFE95D93331B282 /* Frameworks */,
+				CD4587D955974B515A62519D4851D8F5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NHIAP;
+			productName = NHIAP;
+			productReference = 5DEFB6975BD16E0486742CA2FFBED11A /* libNHIAP.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		9986760B49D3D168F67DDC07224DE58C /* Pods-NHIAPDemoUITests */ = {
@@ -357,7 +477,26 @@
 			);
 			name = "Pods-NHIAPDemoUITests";
 			productName = "Pods-NHIAPDemoUITests";
-			productReference = 684C0FFBA1EC155506C75D0FDE25A1E4 /* libPods-NHIAPDemoUITests.a */;
+			productReference = B923BEEC355D200AB3073CAEE003E211 /* libPods-NHIAPDemoUITests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C10D275AE33A2204B6360302B9F4F1C2 /* Pods-NHIAPDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1652D3A5C9D6A9E3F40ADCF05E8EB26 /* Build configuration list for PBXNativeTarget "Pods-NHIAPDemo" */;
+			buildPhases = (
+				103FA6EC1549B548C5AF62F454B00AD0 /* Sources */,
+				667673EFEB1F40FCFC13B80BA42E18F2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				61E27321AF56D89F82638A42C426CB63 /* PBXTargetDependency */,
+				BA1CA5DDDB65DA8D3A03D6C8C0090046 /* PBXTargetDependency */,
+				6B6FA578D89C09546561E079C18F4C0E /* PBXTargetDependency */,
+			);
+			name = "Pods-NHIAPDemo";
+			productName = "Pods-NHIAPDemo";
+			productReference = 8D6F6D8972B558F78FBEF6A7E18CE321 /* libPods-NHIAPDemo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		CD119680CEFF567FE0A3674320FCF142 /* NHHUDExtend */ = {
@@ -375,25 +514,7 @@
 			);
 			name = NHHUDExtend;
 			productName = NHHUDExtend;
-			productReference = 04ED2F93B28B95B8C6494D062EF7AFF7 /* libNHHUDExtend.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		D702FEF7C30394203A5510733E22B331 /* Pods-NHIAPDemo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 31AE6A64EF5A4736A2601CC9A2B85957 /* Build configuration list for PBXNativeTarget "Pods-NHIAPDemo" */;
-			buildPhases = (
-				820BBF43028A248AC78438D917607F26 /* Sources */,
-				B9E263C5321797A90D8676A655EA8D73 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7904B22856CBE970EE7795DD727C9EC7 /* PBXTargetDependency */,
-				89F43EE7034957FF97E6F95BD07BDE9F /* PBXTargetDependency */,
-			);
-			name = "Pods-NHIAPDemo";
-			productName = "Pods-NHIAPDemo";
-			productReference = 32B9815F1557EE8EA4B99B3CE4C9F00F /* libPods-NHIAPDemo.a */;
+			productReference = D0E908CFE50C4F964E581F612F3B6657 /* libNHHUDExtend.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -403,7 +524,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -413,13 +534,14 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 58AC9076272F921F01BDDF7F75CF7F56 /* Products */;
+			productRefGroup = C9F9A69C9DAAB65042B9095430D2C255 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				586F2DFA9BDCC6675C2546793A69E5CC /* MBProgressHUD */,
 				CD119680CEFF567FE0A3674320FCF142 /* NHHUDExtend */,
-				D702FEF7C30394203A5510733E22B331 /* Pods-NHIAPDemo */,
+				98467F5B709F855E3AE21C72BE40D052 /* NHIAP */,
+				C10D275AE33A2204B6360302B9F4F1C2 /* Pods-NHIAPDemo */,
 				7DE80CBD9698362D6FCB76002CC1DF5F /* Pods-NHIAPDemoTests */,
 				9986760B49D3D168F67DDC07224DE58C /* Pods-NHIAPDemoUITests */,
 			);
@@ -435,20 +557,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		103FA6EC1549B548C5AF62F454B00AD0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5864D14541F6EF3BD4804679E0DEE2CD /* Pods-NHIAPDemo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E4305B404C5BA5156646C69578ADD62 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E5229F5125ACD420659E7B2D19BB30A8 /* MBProgressHUD-dummy.m in Sources */,
 				536F7D0550F5FD9F5869CEC995CFEE9B /* MBProgressHUD.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		820BBF43028A248AC78438D917607F26 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6D3CF6C15AD37C4FCB57A575C9C8621B /* Pods-NHIAPDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,14 +591,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD402985E12B729502B840D47720E2D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8D2ACB8FB92D2A143D5F49C5E4D1CA /* NHIAP-dummy.m in Sources */,
+				14DD1D2EF08FE296D32A3445AB817046 /* NHIAP.m in Sources */,
+				5EDC76C774FC2F65ACF4169A58BCA0D9 /* NHLog.m in Sources */,
+				56165946936308C649F14584ECC9AC1F /* NHOrderManage.m in Sources */,
+				20214E591B7EDFFB16B3DCA3280669D6 /* NHOrderVerify.m in Sources */,
+				2653EE782A59A92AB0504FF406A913FA /* NHPayApi.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7904B22856CBE970EE7795DD727C9EC7 /* PBXTargetDependency */ = {
+		61E27321AF56D89F82638A42C426CB63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MBProgressHUD;
 			target = 586F2DFA9BDCC6675C2546793A69E5CC /* MBProgressHUD */;
-			targetProxy = 266649BDB7EC1833F8AA1AD2AA3AA80E /* PBXContainerItemProxy */;
+			targetProxy = 983AAC15B223BC8654179C68CCAB1BF8 /* PBXContainerItemProxy */;
+		};
+		6B6FA578D89C09546561E079C18F4C0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NHIAP;
+			target = 98467F5B709F855E3AE21C72BE40D052 /* NHIAP */;
+			targetProxy = 003F33AF51A89816E3CE181689E1C13E /* PBXContainerItemProxy */;
 		};
 		7924C2982B75BBD6ED5F023A23A15EBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -484,11 +625,11 @@
 			target = 586F2DFA9BDCC6675C2546793A69E5CC /* MBProgressHUD */;
 			targetProxy = 3B190A4909D1D22E75C297169A500C90 /* PBXContainerItemProxy */;
 		};
-		89F43EE7034957FF97E6F95BD07BDE9F /* PBXTargetDependency */ = {
+		BA1CA5DDDB65DA8D3A03D6C8C0090046 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = NHHUDExtend;
 			target = CD119680CEFF567FE0A3674320FCF142 /* NHHUDExtend */;
-			targetProxy = 8F38A5EF31B63EB08F7073D921984019 /* PBXContainerItemProxy */;
+			targetProxy = FD73AA3AC5F7883C509083B35D3C07D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,9 +644,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -513,21 +652,15 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -560,9 +693,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -570,20 +701,14 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -602,7 +727,30 @@
 			};
 			name = Release;
 		};
-		3CE0316FDC1D7A8BDECC21A9CA30972B /* Debug */ = {
+		647EE314210B4B790BEDE0CBD9D0EA4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B205344A40CAF3A6197E85F38D49D785 /* Pods-NHIAPDemoUITests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		66D45E8BE5505617E3965706556D1005 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EB614F1C653B7B1BDA2789A23348E8AC /* Pods-NHIAPDemo.debug.xcconfig */;
 			buildSettings = {
@@ -625,9 +773,9 @@
 			};
 			name = Debug;
 		};
-		647EE314210B4B790BEDE0CBD9D0EA4B /* Debug */ = {
+		6BDE5FAD7C33CE157EEF20C64B82DF5C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B205344A40CAF3A6197E85F38D49D785 /* Pods-NHIAPDemoUITests.debug.xcconfig */;
+			baseConfigurationReference = BDB794964749CA208DC9E7D4FC4740AA /* NHIAP.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -635,16 +783,17 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
+				GCC_PREFIX_HEADER = "Target Support Files/NHIAP/NHIAP-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Debug;
 		};
@@ -682,7 +831,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -706,7 +855,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/NHHUDExtend/NHHUDExtend-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -719,6 +868,30 @@
 			};
 			name = Debug;
 		};
+		942D89474B3297DCD51FB066C3E09B80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDB794964749CA208DC9E7D4FC4740AA /* NHIAP.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/NHIAP/NHIAP-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+			};
+			name = Release;
+		};
 		A45B20D9D6CA1E9124625B3FF6804A2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 196F09EB628DF9C57331088F6A20AF38 /* MBProgressHUD.xcconfig */;
@@ -730,7 +903,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -777,7 +950,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/NHHUDExtend/NHHUDExtend-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -813,7 +986,7 @@
 			};
 			name = Debug;
 		};
-		E010365B9C9C9BC2A32BB7702599DD13 /* Release */ = {
+		EC035D34F635D53A9D2BD475C9928C3E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5803876C8FD66B3DE44FC034E27715F8 /* Pods-NHIAPDemo.release.xcconfig */;
 			buildSettings = {
@@ -848,15 +1021,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31AE6A64EF5A4736A2601CC9A2B85957 /* Build configuration list for PBXNativeTarget "Pods-NHIAPDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3CE0316FDC1D7A8BDECC21A9CA30972B /* Debug */,
-				E010365B9C9C9BC2A32BB7702599DD13 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		36A448C30DC42C41660AF52A4FE46E93 /* Build configuration list for PBXNativeTarget "Pods-NHIAPDemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -884,11 +1048,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		94E170A7F412AF315E5519E023F55B64 /* Build configuration list for PBXNativeTarget "NHIAP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6BDE5FAD7C33CE157EEF20C64B82DF5C /* Debug */,
+				942D89474B3297DCD51FB066C3E09B80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A0B71835A45E654A775B7D341EB15437 /* Build configuration list for PBXNativeTarget "NHHUDExtend" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				855B0AC2E955883C5D3EDA1A2EF22863 /* Debug */,
 				D01D890E830A3A3704B3B1505A3B302F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1652D3A5C9D6A9E3F40ADCF05E8EB26 /* Build configuration list for PBXNativeTarget "Pods-NHIAPDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66D45E8BE5505617E3965706556D1005 /* Debug */,
+				EC035D34F635D53A9D2BD475C9928C3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

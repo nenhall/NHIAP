@@ -15,11 +15,6 @@
 		0A704A091EE7C3E400E246A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A704A071EE7C3E400E246A5 /* LaunchScreen.storyboard */; };
 		0A704A141EE7C3E400E246A5 /* NHIAPDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A131EE7C3E400E246A5 /* NHIAPDemoTests.m */; };
 		0A704A1F1EE7C3E400E246A5 /* NHIAPDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A1E1EE7C3E400E246A5 /* NHIAPDemoUITests.m */; };
-		0A704A381EE7C42F00E246A5 /* NHIAP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A2E1EE7C42F00E246A5 /* NHIAP.m */; };
-		0A704A391EE7C42F00E246A5 /* NHOrderManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A301EE7C42F00E246A5 /* NHOrderManage.m */; };
-		0A704A3A1EE7C42F00E246A5 /* NHPayApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A704A321EE7C42F00E246A5 /* NHPayApi.m */; };
-		0A9358C81F86160B00AD2D85 /* NHLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9358C51F86160B00AD2D85 /* NHLog.m */; };
-		0A9358C91F86160B00AD2D85 /* NHOrderVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9358C71F86160B00AD2D85 /* NHOrderVerify.m */; };
 		0AEDE1BE1F8C982E00F6BD5A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEDE1BD1F8C982E00F6BD5A /* StoreKit.framework */; };
 		109C5ABFB8374ADC803098AE /* libPods-NHIAPDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2D22F2372748336A2766696 /* libPods-NHIAPDemoUITests.a */; };
 		9A9A2B9F287B11AEC5D74EA3 /* libPods-NHIAPDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8138EC98DB35234ACA2BC84A /* libPods-NHIAPDemoTests.a */; };
@@ -60,18 +55,6 @@
 		0A704A1A1EE7C3E400E246A5 /* NHIAPDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NHIAPDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A704A1E1EE7C3E400E246A5 /* NHIAPDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NHIAPDemoUITests.m; sourceTree = "<group>"; };
 		0A704A201EE7C3E400E246A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A704A2D1EE7C42F00E246A5 /* NHIAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHIAP.h; sourceTree = "<group>"; };
-		0A704A2E1EE7C42F00E246A5 /* NHIAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHIAP.m; sourceTree = "<group>"; };
-		0A704A2F1EE7C42F00E246A5 /* NHOrderManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHOrderManage.h; sourceTree = "<group>"; };
-		0A704A301EE7C42F00E246A5 /* NHOrderManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHOrderManage.m; sourceTree = "<group>"; };
-		0A704A311EE7C42F00E246A5 /* NHPayApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHPayApi.h; sourceTree = "<group>"; };
-		0A704A321EE7C42F00E246A5 /* NHPayApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHPayApi.m; sourceTree = "<group>"; };
-		0A704A371EE7C42F00E246A5 /* NHSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSingleton.h; sourceTree = "<group>"; };
-		0A704A3D1EE7C61A00E246A5 /* NHMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHMacro.h; sourceTree = "<group>"; };
-		0A9358C41F86160B00AD2D85 /* NHLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHLog.h; sourceTree = "<group>"; };
-		0A9358C51F86160B00AD2D85 /* NHLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHLog.m; sourceTree = "<group>"; };
-		0A9358C61F86160B00AD2D85 /* NHOrderVerify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHOrderVerify.h; sourceTree = "<group>"; };
-		0A9358C71F86160B00AD2D85 /* NHOrderVerify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHOrderVerify.m; sourceTree = "<group>"; };
 		0AEDE1BD1F8C982E00F6BD5A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2DD3CF749E41C2C01E195FFA /* Pods-NHIAPDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHIAPDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NHIAPDemo/Pods-NHIAPDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		4ED9832BD3318AA81C473125 /* Pods-NHIAPDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHIAPDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NHIAPDemo/Pods-NHIAPDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -116,7 +99,6 @@
 		0A7049ED1EE7C3E300E246A5 = {
 			isa = PBXGroup;
 			children = (
-				0A704A2C1EE7C42F00E246A5 /* NHIAP */,
 				0A7049F81EE7C3E300E246A5 /* NHIAPDemo */,
 				0A704A121EE7C3E400E246A5 /* NHIAPDemoTests */,
 				0A704A1D1EE7C3E400E246A5 /* NHIAPDemoUITests */,
@@ -176,26 +158,6 @@
 				0A704A201EE7C3E400E246A5 /* Info.plist */,
 			);
 			path = NHIAPDemoUITests;
-			sourceTree = "<group>";
-		};
-		0A704A2C1EE7C42F00E246A5 /* NHIAP */ = {
-			isa = PBXGroup;
-			children = (
-				0A9358C41F86160B00AD2D85 /* NHLog.h */,
-				0A9358C51F86160B00AD2D85 /* NHLog.m */,
-				0A9358C61F86160B00AD2D85 /* NHOrderVerify.h */,
-				0A9358C71F86160B00AD2D85 /* NHOrderVerify.m */,
-				0A704A2D1EE7C42F00E246A5 /* NHIAP.h */,
-				0A704A2E1EE7C42F00E246A5 /* NHIAP.m */,
-				0A704A2F1EE7C42F00E246A5 /* NHOrderManage.h */,
-				0A704A301EE7C42F00E246A5 /* NHOrderManage.m */,
-				0A704A311EE7C42F00E246A5 /* NHPayApi.h */,
-				0A704A321EE7C42F00E246A5 /* NHPayApi.m */,
-				0A704A371EE7C42F00E246A5 /* NHSingleton.h */,
-				0A704A3D1EE7C61A00E246A5 /* NHMacro.h */,
-			);
-			name = NHIAP;
-			path = ../NHIAP;
 			sourceTree = "<group>";
 		};
 		889D69E81B3A008D7E62BAE2 /* Pods */ = {
@@ -516,11 +478,6 @@
 			files = (
 				0A704A011EE7C3E400E246A5 /* ViewController.m in Sources */,
 				0A7049FE1EE7C3E400E246A5 /* AppDelegate.m in Sources */,
-				0A9358C81F86160B00AD2D85 /* NHLog.m in Sources */,
-				0A704A391EE7C42F00E246A5 /* NHOrderManage.m in Sources */,
-				0A704A3A1EE7C42F00E246A5 /* NHPayApi.m in Sources */,
-				0A704A381EE7C42F00E246A5 /* NHIAP.m in Sources */,
-				0A9358C91F86160B00AD2D85 /* NHOrderVerify.m in Sources */,
 				0A7049FB1EE7C3E300E246A5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
