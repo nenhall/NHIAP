@@ -10,13 +10,10 @@
 #import "NHMacro.h"
 
 @interface NHOrderInfo : NSObject
-@property (nonatomic, copy, readonly) NSString *receiptDataStr; //apple返回的receiptData数据
 @property (nonatomic, copy, readonly) NSString *transactionIdentifier; //订单号
-@property (nonatomic, copy, readonly) NSString *proudctPrice; //产品价格
-@property (nonatomic, copy, readonly) NSString *payObjectID; //支付者id
+@property (nonatomic, copy, readonly) NSString *consumerIdentifier; //支付者id
 @property (nonatomic, copy, readonly) NSString *payTimeStamp; //支付时间(这里以时间戳格式保存)
-@property (nonatomic, copy, readonly) NSString *proudctID; //产品ID
-@property (nonatomic, copy, readonly) NSNumber *sandbox; //交易环境(1为沙盒 0线上)
+@property (nonatomic, copy, readonly) NSString *productIdentifier; //产品ID
 
 @end
 
@@ -27,17 +24,14 @@
  *  添加订单信息
  *
  *  @param transactionIdentifier apple返回的订单号
- *  @param receiptDataStr        订单data信息
- *  @param proudctPrice          充值金额
- *  @param payObjectID           充值用户DI(根据自己的项目需要来定)，这里只为保存订单信息时用到
+ *  @param productIdentifier     商品id
+ *  @param consumerIdentifier    充值用户DI(根据自己的项目需要来定)，这里只为保存订单信息时用到
  *
  */
-+ (BOOL)addTransactionIdentifier:(NSString *)transactionIdentifier
-                  receiptDataStr:(NSString *)receiptDataStr
-                    proudctPrice:(NSString *)proudctPrice
-                       proudctID:(NSString *)proudctID
-                     payObjectID:(NSString *)payObjectID
-                         sandbox:(BOOL)sandbox;
+
++ (BOOL)addTransactionPayTimeStamp:(NSString *)transactionIdentifier
+                 productIdentifier:(NSString *)productIdentifier
+                consumerIdentifier:(NSString *)consumerIdentifier;
 
 /**
  通过订单号删除相应的订单信息
@@ -49,7 +43,6 @@
 /**
  检查未完成的订单
 
- @param productID 产品id
  */
 + (NSArray<NHOrderInfo *> *)checkHistyUnfinishedOrder;
 
@@ -58,23 +51,12 @@
  通过订单号获取订单信息
  @param transactionIdentifier apple返回的订单号
  */
-+ (NHOrderInfo *)getOrderInfoTransactionIdentifier:(NSString *)transactionIdentifier;
-
-
++ (NHOrderInfo *)getOrderInfoPayTimeStamp:(NSString *)transactionIdentifier;
 
 /**
- *  检查正在进行但未完成的订单
- *  如用户在支付完后，但还未向自己的服务成功通知时，出现的一系列异常(断网，断电...)
- *  @return 所有未完成的订单信息
+ 时间戳
  */
-//+ (NHOrderInfo *)checkUnderwayingUnfinishedOrder;
-
-//+ (void)addPayingProductID:(NSString *)productID
-//               payObjectID:(NSString *)payObjectID
-//              proudctPrice:(NSString *)proudctPrice;
-
-//+ (void)deletePayingProductID:(NSString *)productID;
-
++ (long long)getDateTimeTOMilliSeconds:(NSDate *)datetime;
 @end
 
 

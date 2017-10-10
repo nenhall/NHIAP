@@ -8,179 +8,229 @@
 
 #import "NHIAP.h"
 #import "CommonCrypto/CommonDigest.h"
-#import "NHPaymentVerify.h"
-
-
-NSString *const NHIAPcompleteRecharge = @"completeRecharge";
+#import "NHLog.h"
+#import "NHMacro.h"
+#import "NHOrderVerify.h"
 
 
 @interface NHIAP ()<SKProductsRequestDelegate,SKPaymentTransactionObserver,SKRequestDelegate>
-@property (nonatomic, copy  ) NHSKProductsRequestSuccessBlock productSuccessBlock;
-@property (nonatomic, copy  ) NHSKProductsRequestFailureBlock productFailureBlock;
-@property (nonatomic, copy  ) NHSKPaymentTransactionSuccessBlock transactionSuccessBlock;
-@property (nonatomic, copy  ) NHSKPaymentTransactionFailureBlock transactionFailureBlock;
+@property (nonatomic, copy  ) NHSKProductsRequestSuccess productSuccessBlock;
+@property (nonatomic, copy  ) NHStoreFailure failureBlock;
+@property (nonatomic, copy  ) NHSKPaymentTransactionSuccess transactionSuccessBlock;
+@property (nonatomic, copy  ) NHSKPaymentTransactionFailure transactionFailureBlock;
 @property (nonatomic, copy  ) NHSKPaymentTransactionDidReceiveResponse receiveResponse;
-@property (nonatomic, copy  ) NHSKPaymentCompleteBlock paymentCompleteBlock;
 
-@property (nonatomic, copy  ) NSString *currentProductIdentifier; //当前的产品ID
-@property (nonatomic, copy  ) NSString *proudctPrice; //产品价格
-@property (nonatomic, copy  ) NSArray  *proudctIDS; //外界传入的所有产品ID
-@property (nonatomic, copy  ) NSString *payObjectID; //支付者id
-@property (nonatomic, copy  ) NSNumber *payTimeStamp; //支付时间(这里以时间戳格式保存)
-@property (nonatomic, copy  ) NSArray <SKProduct *> *allProducts; //store查询到的所有有效产品
+//恢复相关
+@property (nonatomic, copy  ) NHSKProductsInvalidProducts invalidProductId;
+@property (nonatomic, copy  ) NHSKPaymentTransactionSuccess restoreTransactionSuccessBlock;
+@property (nonatomic, copy  ) NHSKPaymentTransactionFailure restoreTransactionFailureBlock;
+@property (nonatomic, copy  ) NHRestoreTransactions restoreTransactionsBlock;
+@property (nonatomic, copy  ) NSArray<SKPaymentTransaction *> *restoreTransactions;
+
+@property (nonatomic, copy  ) NSArray <SKProduct *> *effectiveProductsIdentifier; //store查询到的所有有效商品
 @property (nonatomic, copy  ) NSArray <NSString *> *invalidProductsIdentifier; //store查询到的无效产品ID
-@property (nonatomic, strong) NSMutableDictionary *storeAllProducts; //键：store查询的具体产品, key：产品ID
-@property (nonatomic, strong) NSDictionary *productsPrice; //key：产品ID, value：价格
-@property (nonatomic, strong) NSString *coustomTransactionID;
-
+@property (nonatomic, copy  ) NSString *currentProductIdentifier; //当前的产品ID
+@property (nonatomic, copy  ) NSArray *productIdentifiers; //产品id
+@property (nonatomic, copy  ) NSString *consumerIdentifier; //支付者id
+@property (nonatomic, strong) NSMutableDictionary *effectiveProducts; //键：store查询的有效具体产品, key：产品ID
+@property (nonatomic, assign) BOOL isRestore;
+//@property (nonatomic, copy  ) NSMutableArray *currentRestoreTransactions;
 @end
 
 @implementation NHIAP
 NSSingletonM(NHIAP)
 
-- (NSMutableDictionary *)storeAllProducts{
-    if (!_storeAllProducts) {
-        _storeAllProducts = [[NSMutableDictionary alloc] init];
-    }
-    return _storeAllProducts;
-}
-
-- (NSDictionary *)productsPrice {
-    if (!_productsPrice) {
-        _productsPrice = @{
-                           @"com.neghao.iap01" : @6,
-                           @"com.neghao.iap02" : @30,
-                           @"com.neghao.iap03" : @88,
-                           @"com.neghao.iap04" : @588,
-                           @"com.neghao.iap05" : @1590,
-                           @"com.neghao.iap06" : @1998,
-                        };
-    }
-    return _productsPrice;
-}
+//- (NSMutableArray *)currentRestoreTransactions {
+//
+//    if (!_currentRestoreTransactions) {
+//        _currentRestoreTransactions = [NSMutableArray alloc];
+//    }
+//    return _currentRestoreTransactions;
+//}
 
 - (NSArray<NHOrderInfo *> *)checkAllUnfinishedOrderIsFromBackground:(BOOL)background{
-    _payObjectID = [NSString stringWithFormat:@"123"];
+
+    _isRestore = YES;
+
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+
+    self.restoreTransactions = [SKPaymentQueue defaultQueue].transactions;
+    
+    NSArray *array = [SKPaymentQueue defaultQueue].transactions.mutableCopy;
+    NHLog(@"checkAllUnfinishedOrderIsFromBackground:\n%@",array);
+    
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    if (background) {
-        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-    }
+
     return [NHOrderManage checkHistyUnfinishedOrder];
 }
 
 
 //从apple查询可供销售购买产品的信息
-+ (instancetype)requestProducts:(NSArray *)identifiers
-                        success:(NHSKProductsRequestSuccessBlock)successBlock
-                        failure:(NHSKProductsRequestFailureBlock)failureBlock {
++ (instancetype)requestProducts:(NSArray *)proudctIDs
+                        success:(NHSKProductsRequestSuccess)successBlock
+               invalidProductId:(NHSKProductsInvalidProducts)invalidProductId
+                        failure:(NHStoreFailure)failureBlock {
     
-    return [[NHIAP sharedNHIAP] requestProducts:identifiers
+    return [[NHIAP sharedNHIAP] requestProducts:proudctIDs
                                         success:successBlock
+                               invalidProductId:invalidProductId
                                         failure:failureBlock];
 }
 
+
 - (instancetype)requestProducts:(NSArray *)proudctIDS
-                        success:(NHSKProductsRequestSuccessBlock)successBlock
-                        failure:(NHSKProductsRequestFailureBlock)failureBlock {
+                        success:(NHSKProductsRequestSuccess)successBlock
+               invalidProductId:(NHSKProductsInvalidProducts)invalidProductId
+                        failure:(NHStoreFailure)failureBlock {
+    
+    
+    if (_effectiveProducts.count <= 0) {
+        _isRequestProudct = YES;
+    } else {
+        nh_safe_block(successBlock, _effectiveProducts.copy);
+        return self;
+    }
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    _isRequestProudct = YES;
+
     self.productSuccessBlock = successBlock;
-    self.productFailureBlock = failureBlock;
-    self.proudctIDS = proudctIDS;
-    NSSet *productSet = [NSSet setWithArray:proudctIDS ?: [self.productsPrice allKeys]];
+    self.failureBlock = failureBlock;
+    self.productIdentifiers = proudctIDS;
+    self.invalidProductId = invalidProductId;
+    
+    NSSet *productSet = [NSSet setWithArray:proudctIDS];
     SKProductsRequest *productRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
     productRequest.delegate = self;
     [productRequest start];
+    
     return self;
 }
 
 
++ (instancetype)addPayment:(NSString *)productIdentifier
+                consumerId:(NSString *)consumerIdentifier
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock {
+    
+    return [[NHIAP sharedNHIAP] addPayment:productIdentifier
+                                consumerId:consumerIdentifier
+                                   success:successBlock
+                                   failure:failureBlock];
+}
+
 - (instancetype)addPayment:(NSString *)productIdentifier
-               payObjectID:(NSString *)payObjectID
-           paymentComplete:(NHSKPaymentCompleteBlock)paymentComplete
-                   success:(NHSKPaymentTransactionSuccessBlock)successBlock
-                   failure:(NHSKPaymentTransactionFailureBlock)failureBlock {
+                consumerId:(NSString *)consumerIdentifier
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock {
     
     self.transactionSuccessBlock = successBlock;
     self.transactionFailureBlock = failureBlock;
-    self.paymentCompleteBlock = paymentComplete;
     
-    if (!_storeAllProducts) {
-        tipWithMessage(@"正在更新商品信息...");
-        return nil;
+    if (_effectiveProducts.count <= 0 && !_isRequestProudct) {
+//        NHIAPTipWithMessage(@"暂无可售卖商品");
+        nh_safe_block(failureBlock, nil, NHEorrorinfo(404, @"暂无可售卖商品", nil, nil));
+        return self;
+    }
+    
+    if (_effectiveProducts.count <= 0 && _isRequestProudct) {
+//        NHIAPTipWithMessage(@"正在更新商品信息...");
+        nh_safe_block(failureBlock, nil, NHEorrorinfo(404, @"正在更新商品信息...", nil, nil));
+        return self;
     }
     
     if (![SKPaymentQueue canMakePayments]) {
-        tipWithMessage(@"您的手机没有打开程序内付费购买");
-        return nil;
+//        NHIAPTipWithMessage(@"您的手机没有打开程序内付费功能");
+        nh_safe_block(failureBlock, nil, NHEorrorinfo(404, @"您的手机没有打开程序内付费功能", nil, nil));
+        return self;
     }
     
     //发送购买请求
     _currentProductIdentifier = productIdentifier;
-    _currentProduct = [_storeAllProducts objectForKey:productIdentifier];
-    _proudctPrice = [NSString stringWithFormat:@"%@",_currentProduct.price];
-    _payObjectID = payObjectID;
-    _coustomTransactionID = [NHPayApi getCurrentDateBaseStyle:nil];
-
+    _currentProduct = [_effectiveProducts objectForKey:productIdentifier];
+    _consumerIdentifier = consumerIdentifier;
+    
+    
+    if (_currentProduct == nil) {
+        NHWEFLog(@"产品id不能为空");
+        return self;
+    }
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     SKMutablePayment *payment= [SKMutablePayment paymentWithProduct:_currentProduct];
     //设置用户别名，防止充错用户，可以用userID+版本号做标记
-    payment.applicationUsername = [NSString stringWithFormat:@"%@:%@",payObjectID,kApp_version];
+    payment.applicationUsername = [NSString stringWithFormat:@"%@:%lld",consumerIdentifier,[NHOrderManage getDateTimeTOMilliSeconds:nil]];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     return self;
 }
 
 
+/**
+ 恢复订单的相关信息
+ */
++ (void)restoreTransaction:(NHRestoreTransactions)transactions
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock {
+    return [[NHIAP sharedNHIAP] restoreTransaction:transactions success:successBlock failure:failureBlock];
+}
+
+- (void)restoreTransaction:(NHRestoreTransactions)transactions
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock {
+    
+    self.restoreTransactionFailureBlock = failureBlock;
+    self.restoreTransactionSuccessBlock = successBlock;
+    self.restoreTransactionsBlock = transactions;
+    [self checkAllUnfinishedOrderIsFromBackground:YES];
+}
+
 #pragma mark - SKRequestDelegate
+#pragma mark -
 - (void)requestDidFinish:(SKRequest *)request {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidFinish:error:)]) {
-        [self.delegate requestDidFinish:_allProducts error:nil];
-    }
-    if (self.productSuccessBlock) {
-        self.productSuccessBlock(_allProducts, _invalidProductsIdentifier);
-    }
+    nh_safe_block(_productSuccessBlock, [_effectiveProducts allValues])
 }
 
+
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    _isRequestProudct = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NHNSLog(@"%@",@"请求产品信息失败");
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidFinish:error:)]) {
-        [self.delegate requestDidFinish:nil error:error];
-    }
-    if (self.productFailureBlock) {
-        self.productFailureBlock(error);
-    }
+    NHWEFLog(@"请求产品信息失败:%@",error.localizedDescription);
+    
+    NHIAPDEBUGTipWithMessage(error.localizedDescription);
+
+    nh_safe_block(_failureBlock, error);
 }
 
 
 #pragma mark - SKProductsRequestDelegate
+#pragma mark -
 //查询成功后的回调（收到产品返回信息）
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     _isRequestProudct = NO;
 
-    _allProducts = response.products;
+    NSArray *effectiveProducts = response.products;
+    
     _invalidProductsIdentifier = response.invalidProductIdentifiers;
+    
+    nh_safe_block(_invalidProductId, _invalidProductsIdentifier)
     
     if (_invalidProductsIdentifier.count > 0) {
         NSString *sting = [NSString stringWithFormat:@"无效的商品:%@",response.invalidProductIdentifiers];
-        tipWithMessages(sting, nil, @"确定", @"知道了");
+        NHIAPDEBUGTipWithMessage(sting);
     }
     
-    if (_allProducts.count == 0) {//无法获取产品信
-        tipWithMessage(@"暂无可出售商品");
-        NSLog(@"获取产品个数：0");
+    if (effectiveProducts.count == 0) {//无法获取产品信
+        NHIAPDEBUGTipWithMessage(@"暂无可售卖商品");
         return;
     }
     
-    for(SKProduct *product in _allProducts){
-        [self  printfProductinfos:product];
-        [self.storeAllProducts setObject:product forKey:product.productIdentifier];
+    for(SKProduct *product in effectiveProducts){
+        [self printfProductinfos:product];
+        //保存有效商品，在下一次购买的时候不需要重新请求
+        [self.effectiveProducts setObject:product forKey:product.productIdentifier];
     }
 }
 
@@ -189,13 +239,16 @@ NSSingletonM(NHIAP)
 //购买操作后的回调
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
     for (SKPaymentTransaction *paymentTransaction in transactions) {
-        NSLog(@"payTransaction = %@",paymentTransaction.transactionIdentifier);
+            NHLog(@"payTransaction = %@",paymentTransaction.transactionIdentifier);
+        
         switch (paymentTransaction.transactionState) {
-            case SKPaymentTransactionStatePurchased: //交易完成
+            case SKPaymentTransactionStatePurchased: //支付完成
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                nh_safe_block(_statePurchased, paymentTransaction);
                 [self compaleteTransaction:paymentTransaction];
                 break;
                 
-            case SKPaymentTransactionStateFailed:  //交易失败
+            case SKPaymentTransactionStateFailed:  //支付失败
                 [self failedTransaction:paymentTransaction];
                 break;
                 
@@ -205,14 +258,27 @@ NSSingletonM(NHIAP)
                 break;
                 
             case SKPaymentTransactionStatePurchasing: //商品添加进列表
+            {
                 //添加正在请求付费信息
-                NHNSLog(@"\n请求付费信息:\n订单号:%@",paymentTransaction.transactionIdentifier);
-                break;
+                _isRestore = NO;
+                for (SKPaymentTransaction *pt in _restoreTransactions) {
+                    if ([pt.payment.productIdentifier isEqualToString:paymentTransaction.payment.productIdentifier]) {
+                        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                        if (pt.transactionState == 1 || pt.transactionState == 3) {
+                            _isRestore = YES;
+                            [self verifyPurchaseWithPaymentTransaction:pt isRestore:YES];
+                            nh_safe_block(_statePurchasing, pt);
+                        }
+                    }
+                }
                 
-            case SKPaymentTransactionStateDeferred:
-                NHNSLog(@"\n订单挂起:\n订单号:%@",paymentTransaction.transactionIdentifier);
+                NHLog(@"\n请求付费信息:\n订单号:%@",paymentTransaction.transactionIdentifier);
+            }
                 break;
-                
+                case SKPaymentTransactionStateDeferred:
+                    NHLog(@"\n订单挂起:\n订单号:%@",paymentTransaction.transactionIdentifier);
+                    break;
+
             default:
                 break;
         }
@@ -221,184 +287,241 @@ NSSingletonM(NHIAP)
 
 //恢复已购买商品
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    
+    self.restoreTransactions = [SKPaymentQueue defaultQueue].transactions;
+
     for (SKPaymentTransaction *paymentTransaction in queue.transactions) {
-        NHNSLog(@"%ld  --  %@",queue.transactions.count,paymentTransaction.transactionIdentifier);
+        NHLog(@"%ld  --  %@",queue.transactions.count,paymentTransaction.transactionIdentifier);
         if (paymentTransaction.transactionIdentifier) {
-            [self verifyPurchaseWithPaymentTransaction:paymentTransaction isRestore:YES];
+            [self resroreTransaction:paymentTransaction];
+        } else {
+            [self finishTransaction:paymentTransaction];
         }
     }
 }
 
-//恢复已购买商品
-- (void)resroreTransaction:(SKPaymentTransaction *)paymentTransaction {
-    tipWithMessage(@"恢复已购买商品");
-    NSLog(@"恢复已购买商品:%@",paymentTransaction.transactionIdentifier);
-    [self verifyPurchaseWithPaymentTransaction:paymentTransaction isRestore:YES];
-}
-
-
 //删除完成的交易
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
-    NHNSLog(@"removedTransactions:%ld",transactions.count);
+    NHLog(@"removedTransactions:%ld",transactions.count);
 }
 
 //恢复操作后的回调
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    NSLog(@"恢复操作后的回调%@",queue.transactions.firstObject.transactionIdentifier);
-#if DEBUG
-    tipWithMessage(@"恢复操作后的回调");
-#endif
+    NSString *errorString = queue.transactions.firstObject.transactionIdentifier;
+    NHWEFLog(@"恢复购买错误：%@",errorString,error.localizedDescription);
+    NHIAPDEBUGTipWithMessage(errorString);
+    nh_safe_block(_restoreTransactionFailureBlock,queue.transactions.firstObject, error);
 }
 
 //当下载状态更改时发送。
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray<SKDownload *> *)downloads{
-    NHNSLog(@"%@",queue.transactions.firstObject.transactionIdentifier)
+    NHLog(@"%@",queue.transactions.firstObject.transactionIdentifier);
 }
 
-//交易完成调用
+
+#pragma mark - private method
+#pragma mark -
+/**
+ 交易完成调用
+ */
 - (void)compaleteTransaction:(SKPaymentTransaction *)paymentTransaction {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if (_paymentCompleteBlock) {
-        _paymentCompleteBlock(paymentTransaction);
-    }
     
-    NHNSLog(@"支付完成订单号: %@",paymentTransaction.transactionIdentifier);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    NHLog(@"支付完成订单号: %@",paymentTransaction.transactionIdentifier);
     NSString * productIdentifier = paymentTransaction.transactionIdentifier;
 
     if (productIdentifier) {
-        [self verifyPurchaseWithPaymentTransaction:paymentTransaction isRestore:NO];
+        [self verifyPurchaseWithPaymentTransaction:paymentTransaction isRestore:_isRestore];
     }
 }
 
 
-//交易失败后调用
-- (void)failedTransaction:(SKPaymentTransaction *)paymentTransaction {
+/**
+ 恢复已购买商品
+ */
+- (void)resroreTransaction:(SKPaymentTransaction *)paymentTransaction {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    NHIAPDEBUGTipWithMessage(@"恢复已购买商品");
+
+    NHLog(@"恢复已购买商品:%@",paymentTransaction.transactionIdentifier);
+    [self verifyPurchaseWithPaymentTransaction:paymentTransaction isRestore:YES];
+}
+
+
+/**
+ 关闭完成的订单
+ */
+- (void)finishTransaction:(SKPaymentTransaction *)paymentTransaction {
+    if (paymentTransaction.transactionIdentifier) {
+        [[SKPaymentQueue defaultQueue] finishTransaction:paymentTransaction];
+    }
+    
+    [self performSelector:@selector(removeArrary) withObject:nil afterDelay:1];
+//
+//    @synchronized (self) {
+//        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_restoreTransactions];
+//        for (SKPaymentTransaction *pt in tempArr) {
+//            if ([pt.payment.productIdentifier isEqualToString:paymentTransaction.payment.productIdentifier]) {
+//                [tempArr removeObject:pt];
+//            }
+//            _restoreTransactions = tempArr.copy;
+//        }
+//    }
+}
+
+- (void)removeArrary {
+    _restoreTransactions = [SKPaymentQueue defaultQueue].transactions.copy;
+}
+
+
+/**
+ 移除监听
+ */
+- (void)removeTransactionObserver {
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    _currentProduct = nil;
+}
+
+
+/**
+ 交易失败后调用
+ */
+- (void)failedTransaction:(SKPaymentTransaction *)paymentTransaction {
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
     //交易结束了，可以删除正在支付的订单
-    [[SKPaymentQueue defaultQueue] finishTransaction:paymentTransaction];
-        
-    NSLog(@"交易失败:%@",paymentTransaction.error.localizedDescription);
+    [self finishTransaction:paymentTransaction];
+    
+    NHWEFLog(@"交易失败:%@",paymentTransaction.error.localizedDescription);
+    
     NSString *errString;
     switch (paymentTransaction.error.code) {
         case SKErrorUnknown:
-            errString = @"发送交易请求失败，请重试";
+            errString = paymentTransaction.error.localizedDescription;
             break;
+            
         case SKErrorClientInvalid:
             errString = @"当前appleID无法购买商品!";
             break;
+            
         case SKErrorPaymentCancelled:
             errString = @"用户主动取消支付";
             break;
+            
         case SKErrorPaymentInvalid:
             errString = @"订单无效!";
             break;
+            
         case SKErrorPaymentNotAllowed:
-            errString = @"无法购买商品，当前设备不允许付款！";
+            errString = @"无法购买商品，当前设备不允许付款";
             break;
+            
+        case SKErrorStoreProductNotAvailable:
+            errString = @"此产品在当前店面中不可用";
+            break;
+            
+#ifdef NSFoundationVersionNumber_iOS_9_3
         case SKErrorCloudServicePermissionDenied:
-            errString = @"当前appleID无法购买商品!";
+            errString = @"当前appleID不允许访问apple云服务通知";
             break;
+            
         case SKErrorCloudServiceNetworkConnectionFailed:
             errString = @"当前设备无法连接到网络！";
             break;
-        case SKErrorStoreProductNotAvailable:
-            errString = @"当前商品不可用";
-            break;
+#endif
         default:
             errString = nil;
             break;
     }
-    if (self.transactionFailureBlock) {
-        self.transactionFailureBlock(paymentTransaction, NO, ERROR_STATUS(paymentTransaction.error.code, ERROR_MSG(errString ?: @"", nil, nil)));
-    }
+    
+    nh_safe_block(_transactionFailureBlock, paymentTransaction, NHEorrorinfo(paymentTransaction.error.code, errString, nil, nil))
+ 
     if (errString) {
 //        tipWithMessage(errString);
     }
 }
 
 
+
 /**
  服务器验证
 
  @param paymentTransaction 当前交易对象
- @param is_Restore 是否为恢复购买
+ @param isRestore 是否为恢复购买
  */
--(void)verifyPurchaseWithPaymentTransaction:(SKPaymentTransaction *)paymentTransaction isRestore:(BOOL)is_Restore{
-    NSLog(@"\n\n订单号：%@",paymentTransaction.transactionIdentifier);
+-(void)verifyPurchaseWithPaymentTransaction:(SKPaymentTransaction *)paymentTransaction isRestore:(BOOL)isRestore {
+    NHLog(@"\n\n订单号：%@----isRestore:%d",paymentTransaction.transactionIdentifier,_isRestore);
     
-    //去服务器验证
-    __weak __typeof(self)weakself = self;
-    BOOL isRestore;
-    if (is_Restore) {
-        isRestore = YES;
-    } else {
-        isRestore = NO;
-    }
+    //同步订单，防止恢复订单的时候不消失提示框
+    self.restoreTransactions = [SKPaymentQueue defaultQueue].transactions;
+//    [self.currentRestoreTransactions addObject:paymentTransaction];
     
-    /**
-    //版本号判定,防止版本升级后掉单
-     //如果上一版本的订单未添加用户别名，现有的版本添加，则打开如下代码，并把@"2.1.0"改成你添加订单用户别名功能的版本号
-     //防止用户充值失败后又升级了，导致老版本那笔失败的订单永远无法恢复
-    NSArray *payUserinfo = [paymentTransaction.payment.applicationUsername componentsSeparatedByString:@":"];
-    if (payUserinfo.count == 2) {
-        NSComparisonResult versionCompar = [payUserinfo.lastObject compare:@"2.1.0" options:NSNumericSearch];
-        if (versionCompar == NSOrderedDescending || versionCompar == NSOrderedSame) {
-            //用户id不一致
-            NSString *applicationUsername = payUserinfo.firstObject;
-            if (![applicationUsername isEqualToString:_payObjectID]) {
-                if (self.transactionFailureBlock && !isRestore) {
-                    NHNSLog(@"充值失败，用户ID错误");
-                    self.transactionFailureBlock(paymentTransaction, isRestore,ERROR_STATUS(400, ERROR_MSG(@"用户ID错误", @"", @"")));
-                }
-                return;
+    if (_onPurchasedAutoVerify) {
+        __weak __typeof(self)weakself = self;
+        
+        [NHOrderVerify orderVerifyPaymentTransaction:paymentTransaction success:^(SKPaymentTransaction *payTransaction, id result, BOOL sandbox) {
+
+            if (weakself.isRestore) {
+                nh_safe_block(weakself.restoreTransactionSuccessBlock, paymentTransaction, sandbox);
+            } else {
+                nh_safe_block(weakself.transactionSuccessBlock, paymentTransaction, sandbox);
             }
+            
+        } failure:^(SKPaymentTransaction *payTransaction, NSError *error) {
+
+            if (weakself.isRestore) {
+                nh_safe_block(weakself.restoreTransactionFailureBlock, paymentTransaction, error);
+            } else {
+                nh_safe_block(weakself.transactionFailureBlock, paymentTransaction, error);
+            }
+            
+            if (error.code == NHVerifyStatusReceiptError) {
+                [weakself finishTransaction:payTransaction];
+            }
+        }];
+        
+    } else {
+
+        BOOL sandbox = [NHOrderVerify environmentEqualToSandbox:paymentTransaction];
+        if (self.isRestore) {
+            nh_safe_block(self.restoreTransactionSuccessBlock, paymentTransaction, sandbox);
+        } else {
+            nh_safe_block(self.transactionSuccessBlock, paymentTransaction, sandbox);
         }
     }
-     */
-    
-    NSString *productsPrice = [NSString stringWithFormat:@"%@",[self.productsPrice objectForKey:paymentTransaction.payment.productIdentifier]];
-    [[NHPaymentVerify createVerify] verifyPaymentResultSandbox:NO
-                                            paymentTransaction:paymentTransaction
-                                                 productsPrice:productsPrice
-                                                   payObjectID:_payObjectID
-                                           customTransactionID:_coustomTransactionID
-                                                     isRestore:isRestore
-                                                 paymentResult:^(id result,
-                                                                 SKPaymentTransaction *payTransaction,
-                                                                 NSInteger successCode,
-                                                                 BOOL isRestore_sub,
-                                                                 NSError *error)
-     {
-         if (successCode == 0 && !error) {
-             [[SKPaymentQueue defaultQueue] finishTransaction:payTransaction];
-             if (self.transactionSuccessBlock) {
-                 self.transactionSuccessBlock(paymentTransaction, result, isRestore_sub);
-             }
-             
-         } else if (successCode == 500) {
-             [[SKPaymentQueue defaultQueue] finishTransaction:payTransaction];
-             
-         } else {
-             if (weakself.transactionFailureBlock) {
-                 weakself.transactionFailureBlock(paymentTransaction, isRestore_sub, error);
-             }
-         }
-    }];
 }
 
 //打印产品信息
 - (void)printfProductinfos:(SKProduct *)product {
-    NSLog(@"product info");
-    NSLog(@"SKProduct 描述信息%@", [product description]);
-    NSLog(@"产品标题 %@" , product.localizedTitle);
-    NSLog(@"产品描述信息: %@" , product.localizedDescription);
-    NSLog(@"价格: %@" , product.price);
-    NSLog(@"Product id: %@\n\n" , product.productIdentifier);
+    if ([NHLog logEnable]) {
+        NHCLog(@"<<<<<<<<<<<product info>>>>>>>>>>");
+        NHCLog(@"SKProduct 描述信息: %@", [product description]);
+        NHCLog(@"产品标题: %@" , product.localizedTitle);
+        NHCLog(@"产品描述信息: %@" , product.localizedDescription);
+        NHCLog(@"价格: %@" , product.price);
+        NHCLog(@"Product id: %@\n\n" , product.productIdentifier);
+    }
 }
 
-- (void)removeTransactionObserver {
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-    _currentProduct = nil;
+
+#pragma mark - setting/getting
+#pragma mark -
+- (NSMutableDictionary *)effectiveProducts{
+    if (!_effectiveProducts) {
+        _effectiveProducts = [[NSMutableDictionary alloc] init];
+    }
+    return _effectiveProducts;
+}
+
++ (void)setLogEnable:(BOOL)flag {
+    [NHLog setLogEnable:flag];
+}
+
++ (void)setLogEnable_W_E_F:(BOOL)flag {
+    [NHLog setLogEnable_W_E_F:flag];
 }
 
 - (void)dealloc {

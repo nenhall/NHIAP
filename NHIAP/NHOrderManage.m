@@ -10,8 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <StoreKit/StoreKit.h>
 #import "NHPayApi.h"
-#import "NHPaymentVerify.h"
-
+#import "NHLog.h"
 
 //获取沙盒 Library
 #define NHPathLibrary   [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject]
@@ -63,45 +62,34 @@ static NSString * getMD5String(NSString *str) {
 }
 
 @interface NHOrderInfo ()<NSCoding>
-@property (nonatomic, copy) NSString *receiptDataStr; //apple返回的receiptData数据
 @property (nonatomic, copy) NSString *transactionIdentifier; //订单号
-@property (nonatomic, copy) NSString *proudctPrice; //产品价格
-@property (nonatomic, copy) NSString *payObjectID; //支付者id
-@property (nonatomic, copy) NSString *payTimeStamp; //支付时间(这里以时间戳格式保存)
-@property (nonatomic, copy) NSString *proudctID; //产品ID
-@property (nonatomic, copy) NSNumber *sandbox; //交易环境(1为沙盒 0线上)
+@property (nonatomic, copy) NSString *consumerIdentifier; //支付者id
+@property (nonatomic, copy) NSString *productIdentifier; //产品ID
+@property (nonatomic, copy) NSString *PayTimeStamp;
 @end
 
 
 @implementation NHOrderInfo
 
-#define ReceiptData           @"receiptDataStr"
 #define TransactionIdentifier @"transactionIdentifier"
-#define ProudctPrice          @"proudctPrice"
-#define PayObjectID           @"payObjectID"
-#define PayTimeStamp          @"payTimeStamp"
+#define PayObjectID           @"consumerIdentifier"
 #define ProudctID             @"proudctID"
-#define Sandbox               @"sandbox"
+#define PayTimeStamp          @"PayTimeStamp"
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeObject:_receiptDataStr forKey:getMD5String(ReceiptData)];
     [aCoder encodeObject:_transactionIdentifier forKey:getMD5String(TransactionIdentifier)];
-    [aCoder encodeObject:_proudctPrice forKey:getMD5String(ProudctPrice)];
-    [aCoder encodeObject:_proudctID forKey:getMD5String(ProudctID)];
-    [aCoder encodeObject:_sandbox forKey:getMD5String(Sandbox)];
-    [aCoder encodeObject:_payObjectID forKey:getMD5String(PayObjectID)];
+    [aCoder encodeObject:_productIdentifier forKey:getMD5String(ProudctID)];
+    [aCoder encodeObject:_consumerIdentifier forKey:getMD5String(PayObjectID)];
     [aCoder encodeObject:_payTimeStamp forKey:getMD5String([NSString stringWithFormat:@"%@",PayTimeStamp])];
 }
+
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self) {
-        self.receiptDataStr        = [coder decodeObjectForKey:getMD5String(ReceiptData)];
-        self.proudctPrice          = [coder decodeObjectForKey:getMD5String(ProudctPrice)];
-        self.payObjectID           = [coder decodeObjectForKey:getMD5String(PayObjectID)];
-        self.proudctID             = [coder decodeObjectForKey:getMD5String(ProudctID)];
-        self.sandbox               = [coder decodeObjectForKey:getMD5String(Sandbox)];
+        self.consumerIdentifier    = [coder decodeObjectForKey:getMD5String(PayObjectID)];
+        self.productIdentifier     = [coder decodeObjectForKey:getMD5String(ProudctID)];
         self.transactionIdentifier = [coder decodeObjectForKey:getMD5String(TransactionIdentifier)];
         self.payTimeStamp = [coder decodeObjectForKey:getMD5String([NSString stringWithFormat:@"%@",PayTimeStamp])];
     }
@@ -141,30 +129,21 @@ static NSString * getMD5String(NSString *str) {
     return [NSKeyedArchiver archiveRootObject:orderinfo toFile:LocalOrderCachePath(fileName,YES)];
 }
 
-
-+ (BOOL)addTransactionIdentifier:(NSString *)transactionIdentifier
-                  receiptDataStr:(NSString *)receiptDataStr
-                    proudctPrice:(NSString *)proudctPrice
-                       proudctID:(NSString *)proudctID
-                     payObjectID:(NSString *)payObjectID
-                         sandbox:(BOOL)sandbox {
++ (BOOL)addTransactionPayTimeStamp:(NSString *)payTimeStamp
+               productIdentifier:(NSString *)productIdentifier
+              consumerIdentifier:(NSString *)consumerIdentifier {
     
-    if (transactionIdentifier && payObjectID && receiptDataStr) {
+    if (payTimeStamp && consumerIdentifier) {
         NHOrderInfo *orderinfo = [[NHOrderInfo alloc] init];
-        orderinfo.payObjectID = payObjectID;
-        orderinfo.proudctPrice = proudctPrice;
-        orderinfo.receiptDataStr = receiptDataStr;
-        orderinfo.payTimeStamp = [self getCurrentDateBaseStyleWithData:nil];
-        orderinfo.transactionIdentifier = transactionIdentifier;
-        orderinfo.proudctID = proudctID;
-        orderinfo.sandbox = [NSNumber numberWithBool:sandbox];
-        NSLog(@"保存订单:\n%@,\n%ld,\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.receiptDataStr.length,orderinfo.proudctPrice,orderinfo.payObjectID,orderinfo.payTimeStamp);
+        orderinfo.consumerIdentifier = consumerIdentifier;
+        orderinfo.payTimeStamp = payTimeStamp;
+        orderinfo.productIdentifier = productIdentifier;
+        NSLog(@"保存订单:\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.productIdentifier,orderinfo.consumerIdentifier);
         
-        return [self saveOrderInfo:orderinfo fileName:transactionIdentifier];
+        return [self saveOrderInfo:orderinfo fileName:payTimeStamp];
     }
     return NO;
 }
-
 
 + (BOOL)deleteTransactionIdentifier:(NSString *)transactionIdentifier {
     NHOrderInfo *orderinfo = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalOrderCachePath(transactionIdentifier,YES)];
@@ -174,7 +153,7 @@ static NSString * getMD5String(NSString *str) {
     if (isExists) {
         NSError *error;
         [fileManager removeItemAtPath:LocalOrderCachePath(transactionIdentifier,YES) error:&error];
-        NSLog(@"删除订单：\n%@,\n%ld,\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.receiptDataStr.length,orderinfo.proudctPrice,orderinfo.payObjectID,orderinfo.payTimeStamp);
+        NHLog(@"删除订单：\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.payTimeStamp,orderinfo.productIdentifier);
         if (error) {
             NSLog(@"\n订单删除失败:%@",error.localizedDescription);
         }
@@ -185,7 +164,7 @@ static NSString * getMD5String(NSString *str) {
 + (NHOrderInfo *)checkUnderwayingUnfinishedOrder:(NSString *)productID {
     NHOrderInfo *orderinfo;
     for (NSString *name in [self getFiles]) {
-        NHNSLog(@"checkUnderwayingOrder: %@",name);
+        NHLog(@"checkUnderwayingOrder: %@",name);
         if ([name hasPrefix:productID]) {
             orderinfo = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalOrderCachePath(name,NO)];
         }
@@ -205,14 +184,14 @@ static NSString * getMD5String(NSString *str) {
         @autoreleasepool {
             __block NHOrderInfo *orderinfo = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalOrderCachePath(name,NO)];
             //说明是还未完成支付的订单
-            if (orderinfo.receiptDataStr.length < 2) continue;
+//            if (orderinfo.receiptDataStr.length < 2) continue;
             
             [orders addObject:orderinfo];
-            NHNSLog(@"检查订单:\n%@,\n%lu,\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.receiptDataStr.length,
-                  orderinfo.proudctPrice,orderinfo.payObjectID,orderinfo.payTimeStamp);
+//            NHLog(@"检查订单:\n%@,\n%lu,\n%@,\n%@,\n%@",orderinfo.transactionIdentifier,orderinfo.receiptDataStr.length,
+//                  orderinfo.proudctPrice,orderinfo.payObjectID,orderinfo.payTimeStamp);
             
             //通知服务器验证
-            [NHPaymentVerify verifyPaymentResultWithNHOrderInfo:orderinfo];
+//            [NHPaymentVerify verifyPaymentResultWithNHOrderInfo:orderinfo];
             
 
         }
@@ -229,35 +208,23 @@ static NSString * getMD5String(NSString *str) {
     return files;
 }
 
-+ (NHOrderInfo *)getOrderInfoTransactionIdentifier:(NSString *)transactionIdentifier {
-    NHOrderInfo *orderinfo = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalOrderCachePath(transactionIdentifier,YES)];
++ (NHOrderInfo *)getOrderInfoPayTimeStamp:(NSString *)payTimeStamp {
+    NHOrderInfo *orderinfo = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalOrderCachePath(payTimeStamp,YES)];
     return orderinfo;
 }
 
-
-+ (NSString *)getCurrentDateBaseStyleWithData:(NSData *)data{
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
++ (long long)getDateTimeTOMilliSeconds:(NSDate *)datetime
+{
+    NSTimeInterval interval;
+    if (!datetime) {
+        interval = [[NSDate date] timeIntervalSince1970];
+    }else {
+        interval = [datetime timeIntervalSince1970];
+    }
     
-    NSDate *currentDate = [NSDate date];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    comps = [calendar components:unitFlags fromDate:data ? nil : currentDate];
-    NSInteger week = [comps weekday];
-    NSInteger year=[comps year];
-    NSInteger month = [comps month];
-    NSInteger day = [comps day];
-    //[formatter setDateStyle:NSDateFormatterMediumStyle];
-    //This sets the label with the updated time.
-    NSInteger hour = [comps hour];
-    NSInteger min = [comps minute];
-    NSInteger sec = [comps second];
-    NSString *dataString = [NSString stringWithFormat:@"%ld%ld%ld%ld%ld",year,month,day,hour,min];
-    return dataString;
+    long long totalMilliseconds = interval*1000;
+    
+    return totalMilliseconds;
 }
+
 @end

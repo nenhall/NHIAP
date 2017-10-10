@@ -12,70 +12,126 @@
 #import "NHOrderManage.h"
 #import "NHOrderManage.h"
 #import "NHMacro.h"
+#import "NHLog.h"
 
+/** 失败的信息 */
+typedef void (^_Nullable NHStoreFailure)(NSError * _Nullable error);
 
-UIKIT_EXTERN  NSString *const NHIAPcompleteRecharge;
+/** 请求到的有效商品 */
+typedef void (^_Nullable NHSKProductsRequestSuccess)(NSArray <SKProduct *> *_Nullable products);
 
-typedef void (^NHSKPaymentTransactionFailureBlock)(SKPaymentTransaction *transaction, BOOL isRestore, NSError *error);
-typedef void (^NHSKPaymentTransactionDidReceiveResponse)(SKProductsResponse *response);
-typedef void (^NHSKPaymentTransactionSuccessBlock)(SKPaymentTransaction *transaction, NSDictionary *resultObject, BOOL isRestore);
-typedef void (^NHSKPaymentCompleteBlock)(SKPaymentTransaction *transaction);
-typedef void (^NHSKProductsRequestFailureBlock)(NSError *error);
-typedef void (^NHSKProductsRequestSuccessBlock)(NSArray <SKProduct *> *products, NSArray <NSString *> *invalidIdentifiers);
-typedef void (^NHStoreFailureBlock)(NSError *error);
-typedef void (^NHStoreSuccessBlock)();
-typedef void (^NHPayCompleteBlock)(id result, NSString *transactionIdentifier, NSError *error);
+/** 请求到的无效商品 */
+typedef void (^_Nullable NHSKProductsInvalidProducts)(NSArray <NSString *> *_Nullable invalidProductsIdentifier);
+
+/** note */
+typedef void (^_Nullable NHSKPaymentTransactionDidReceiveResponse)(SKProductsResponse *_Nullable response);
+
+/** 交易成功的回调 
+ * transaction：成功的订单类
+ * 开发者在处理时需要判定用户的一致性
+ */
+typedef void (^_Nullable NHSKPaymentTransactionSuccess)(SKPaymentTransaction *_Nullable payTransaction, BOOL environmentSandbox);
+
+/** 交易失败的回调 transaction：成功的订单类*/
+typedef void (^_Nullable NHSKPaymentTransactionFailure)(SKPaymentTransaction *_Nullable payTransaction, NSError *_Nullable error);
+
+/** 恢复充值的订单 
+ *  已在苹果端验证成功的订单才会记为恢复的订单，开发者在处理时需要判定用户的一致性
+ */
+typedef void (^NHRestoreTransactions)(NSArray <SKProduct *> *_Nullable products);
+
+typedef void (^_Nullable NHPaymentTransactionStatePurchasing)(SKPaymentTransaction *_Nullable payTransaction);
+
+typedef void (^_Nullable NHaymentTransactionStatePurchased)(SKPaymentTransaction *_Nonnull payTransaction);
 
 
 @protocol NHIAPDelegate <NSObject>
-- (void)requestDidFinish:(NSArray *)productIdentifiers error:(NSError *)error;
-- (void)compaleteTransaction:(SKPaymentTransaction *)transaction error:(NSError *)error;
+
+
 @end
 
 
 @interface NHIAP : NSObject
-@property (nonatomic, assign)id<NHIAPDelegate> delegate;
+
+@property (nonatomic, assign)id<NHIAPDelegate > _Nullable delegate;
+
 //是否正在请求商品信息
 @property (nonatomic, assign) BOOL isRequestProudct;
+@property (nonatomic, assign) BOOL onPurchasedAutoVerify;
 
 /**
  *  当前请求/正在购买的产品
  */
-@property (nonatomic, strong, readonly) SKProduct *currentProduct;
-@property (nonatomic, strong, readonly) NHOrderInfo *orderinfo;
+@property (nonatomic, strong, readonly) SKProduct *_Nullable currentProduct;
+@property (nonatomic, strong, readonly) NHOrderInfo *_Nullable orderinfo;
+@property (nonatomic, copy) NHPaymentTransactionStatePurchasing statePurchasing;
+@property (nonatomic, copy) NHaymentTransactionStatePurchased statePurchased;
+
+
+NS_ASSUME_NONNULL_BEGIN
+
 NSSingletonH(NHIAP)
 /**
  *  从苹果服务器请求可出售的产品
  *
- *  @param proudctIDS  产品id
+ *  @param proudctIDS  商品的identifier
  */
-+ (instancetype)requestProducts:(NSArray *)proudctIDS
-                        success:(NHSKProductsRequestSuccessBlock)successBlock
-                        failure:(NHSKProductsRequestFailureBlock)failureBlock;
++ (_Nonnull instancetype)requestProducts:(NSArray *_Nonnull)proudctIDS
+                                 success:(NHSKProductsRequestSuccess)successBlock
+                        invalidProductId:(NHSKProductsInvalidProducts)invalidProductId
+                                 failure:(NHStoreFailure)failureBlock;
+
 
 /**
- *  添加需要购买的产品
- *
- *  @param productIdentifier  产品id
- *  @param successBlock      交易成功
- *  @param failureBlock      交易失败
+ 添加需要购买的产品
+
+ @param productIdentifier 商品identifier
+ @param consumerIdentifier 用户identifier，会在paymentTransaction.payment.applicationUsername返回，可用于判定是否用户的一致性
+ @param successBlock 交易成功
+ @param failureBlock 交易失败
  */
-- (instancetype)addPayment:(NSString *)productIdentifier
-               payObjectID:(NSString *)payObjectID
-           paymentComplete:(NHSKPaymentCompleteBlock)paymentComplete
-                   success:(NHSKPaymentTransactionSuccessBlock)successBlock
-                   failure:(NHSKPaymentTransactionFailureBlock)failureBlock;
+
++ (instancetype)addPayment:(NSString *_Nonnull)productIdentifier
+                consumerId:(NSString *_Nonnull)consumerIdentifier
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock;
+
 
 /**
- *  结束交易,一般不需要手动调这个方法 */
+ 检查未完成的订单，如果有多单，会调用多次
+
+ @param transactions 所有待恢复(处理)的订单
+ @param successBlock 验证成功的
+ @param failureBlock 验证失败的
+ */
++ (void)restoreTransaction:(NHRestoreTransactions)transactions
+                   success:(NHSKPaymentTransactionSuccess)successBlock
+                   failure:(NHSKPaymentTransactionFailure)failureBlock;
+
+/**
+ 关闭完成的订单
+ */
+- (void)finishTransaction:(SKPaymentTransaction *)paymentTransaction;
+
+
+/**
+ *  移除监听 */
 - (void)removeTransactionObserver;
 
+
 /**
- *  检查上一次未完成的订单
- *  如用户在支付完后，但还未向自己的服务成功通知时，出现的一系列异常(断网，断电...)
- *  是否从前后台切换回来
- *  @return 所有未完成的订单信息
+ Log 输出开关(默认允许所有打印)
  */
-- (NSArray <NHOrderInfo *>*)checkAllUnfinishedOrderIsFromBackground:(BOOL)background;
++ (void)setLogEnable:(BOOL)flag;
+
+/**
+ Log 输出开关，只允许Warn、Error、Fatal级别的日志打印 (默认开启)
+ 优先级高于：`setLogEnable:` setLogEnable_W_E_F为yes，Warn、Error、Fatal级别的日志不受`setLogEnable:`影响
+ */
++ (void)setLogEnable_W_E_F:(BOOL)flag;
+
+
 
 @end
+NS_ASSUME_NONNULL_END
+
